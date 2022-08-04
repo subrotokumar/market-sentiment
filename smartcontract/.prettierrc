@@ -1,0 +1,8 @@
+{
+  "useTabs": false,
+  "tabSize": 4,
+  "insertSpaces": true,
+  "detectIndentation": true,
+  "semi": false,
+  "singleQuote": true
+}
