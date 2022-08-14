@@ -12,7 +12,7 @@ Here is the app [Market Sentiment](https://market-sentiment.vercel.app/)
 - Tool: **Moralis** 
 
 ## Command and Instruction
-You need to have metamask installed in your browser and connect to Goerli Ether testnet. You also need to have some testnet MATIC tokens for voting.
+You need to have metamask installed in your browser and connect to Goerli Ethereum testnet. You also need to have some testnet **GoerliETH** tokens for voting.
 
 ```shell
 yarn hardhat help
