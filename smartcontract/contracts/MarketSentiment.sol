@@ -2,12 +2,8 @@
 
 pragma solidity ^0.8.7;
 
-error MarketSentiment__NotOwner();
-error MarketSentiment__EntryNotPresent();
-error MarketSentiment__AlreadyVoted();
-
 contract MarketSentiment {
-    address public immutable owner;
+    address public immutable i_owner;
     string[] public tickersArray;
 
     struct Ticker {
@@ -22,25 +18,22 @@ contract MarketSentiment {
     mapping(string => Ticker) private Tickers;
 
     constructor() {
-        owner = msg.sender;
+        i_owner = msg.sender;
     }
 
     function addTicker(string memory _ticker) public {
-        if (msg.sender != owner) {
-            revert MarketSentiment__NotOwner();
-        }
+        require(msg.sender == i_owner, 'Only the i_owner can create tickers');
         Ticker storage newTicker = Tickers[_ticker];
         newTicker.exists = true;
         tickersArray.push(_ticker);
     }
 
     function vote(string memory _ticker, bool _vote) public {
-        if (!Tickers[_ticker].exists) {
-            revert MarketSentiment__EntryNotPresent();
-        }
-        if (Tickers[_ticker].Voters[msg.sender]) {
-            revert MarketSentiment__AlreadyVoted();
-        }
+        require(Tickers[_ticker].exists, "Can't vote on this coin");
+        require(
+            !Tickers[_ticker].Voters[msg.sender],
+            'You have already voted for this coin'
+        );
         Ticker storage t = Tickers[_ticker];
         t.Voters[msg.sender] = true;
         if (_vote) {
@@ -56,9 +49,7 @@ contract MarketSentiment {
         view
         returns (uint256 up, uint256 down)
     {
-        if (!Tickers[_ticker].exists) {
-            revert MarketSentiment__EntryNotPresent();
-        }
+        require(Tickers[_ticker].exists, 'No such Ticker Defined');
         Ticker storage t = Tickers[_ticker];
         return (t.up, t.down);
     }

@@ -17,4 +17,28 @@ export const abouts = [
     about:
       "Founded in 2017, Chainlink is a blockchain abstraction layer that enables universally connected smart contracts. Through a decentralized oracle network, Chainlink allows blockchains to securely interact with external data feeds, events and payment methods, providing the critical off-chain information needed by complex smart contracts to become the dominant form of digital agreement. The Chainlink Network is driven by a large open-source community of data providers, node operators, smart contract developers, researchers, security auditors and more. The company focuses on ensuring that decentralized participation is guaranteed for all node operators and users looking to contribute to the network.",
   },
+  {
+    token: "MATIC",
+    address: "0x514910771AF9Ca656af840dff83E8264EcF986CA",
+    about:
+      "Founded in 2017, Chainlink is a blockchain abstraction layer that enables universally connected smart contracts. Through a decentralized oracle network, Chainlink allows blockchains to securely interact with external data feeds, events and payment methods, providing the critical off-chain information needed by complex smart contracts to become the dominant form of digital agreement. The Chainlink Network is driven by a large open-source community of data providers, node operators, smart contract developers, researchers, security auditors and more. The company focuses on ensuring that decentralized participation is guaranteed for all node operators and users looking to contribute to the network.",
+  },
+  {
+    token: "SOL",
+    address: "0x514910771AF9Ca656af840dff83E8264EcF986CA",
+    about:
+      "Solana is a crypto-computing platform that aims to achieve high transaction speeds without sacrificing decentralization. \n\nLike Ethereum, Solana is both a cryptocurrency and a flexible platform for running decentralized apps (dapps) — everything from Degenerate Apes to the Serum decentralized exchange (or DEX). Its major innovation is speed, via a bundle of new technologies including a consensus mechanism called proof of history (PoH). Solana can process around 50,000 transactions per second — compared to 15 or less for Ethereum the ETH2 upgrade, which is currently underway, is designed to make Ethereum much faster than it is now.",
+  },
+  {
+    token: "DOT",
+    address: "0x514910771AF9Ca656af840dff83E8264EcF986CA",
+    about:
+      "Founded in 2017, Chainlink is a blockchain abstraction layer that enables universally connected smart contracts. Through a decentralized oracle network, Chainlink allows blockchains to securely interact with external data feeds, events and payment methods, providing the critical off-chain information needed by complex smart contracts to become the dominant form of digital agreement. The Chainlink Network is driven by a large open-source community of data providers, node operators, smart contract developers, researchers, security auditors and more. The company focuses on ensuring that decentralized participation is guaranteed for all node operators and users looking to contribute to the network.",
+  },
+  {
+    token: "BNB",
+    address: "0x514910771AF9Ca656af840dff83E8264EcF986CA",
+    about:
+      "Founded in 2017, Chainlink is a blockchain abstraction layer that enables universally connected smart contracts. Through a decentralized oracle network, Chainlink allows blockchains to securely interact with external data feeds, events and payment methods, providing the critical off-chain information needed by complex smart contracts to become the dominant form of digital agreement. The Chainlink Network is driven by a large open-source community of data providers, node operators, smart contract developers, researchers, security auditors and more. The company focuses on ensuring that decentralized participation is guaranteed for all node operators and users looking to contribute to the network.",
+  },
 ];

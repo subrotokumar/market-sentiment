@@ -9,14 +9,60 @@ import { useMoralisWeb3Api, useMoralis } from "react-moralis";
 const App = () => {
   const [btc, setBtc] = useState(50);
   const [eth, setEth] = useState(48);
-  const [link, setLink] = useState(60);
-  const [SOL, setSOL] = useState(30);
-  const [DOT, setDOT] = useState(39);
+  const [matic, setMatic] = useState(60);
+  const [sol, setSol] = useState(30);
+  const [bnb, setBnb] = useState(39);
+  const [dot, setDot] = useState(39);
 
   const [modalPrice, setModalPrice] = useState();
   const Web3Api = useMoralisWeb3Api();
+  const { Moralis, isInitialized } = useMoralis();
   const [visible, setVisible] = useState(false);
   const [modalToken, setModalToken] = useState();
+
+  async function getRatio(tick, setPerc) {
+    const Votes = Moralis.Object.extend("Votes");
+    const query = new Moralis.Query(Votes);
+    query.equalTo("ticker", tick);
+    query.descending("createdAt");
+    const results = await query.first();
+    let up = Number(results.attributes.up);
+    let down = Number(results.attributes.down);
+    let ratio = Math.round((up / (up + down)) * 100);
+    setPerc(ratio);
+  }
+
+  useEffect(() => {
+    if (isInitialized) {
+      getRatio("BTC", setBtc);
+      getRatio("ETH", setEth);
+      getRatio("MATIC", setMatic);
+      getRatio("SOL", setSol);
+      getRatio("BNB", setBnb);
+      getRatio("DOT", setDot);
+
+      async function createLiveQuery() {
+        let query = new Moralis.Query("Votes");
+        let subscription = await query.subscribe();
+        subscription.on(`Update`, (object) => {
+          if (object.attributes.ticker === "MATIC") {
+            getRatio("MATIC", setMatic);
+          } else if (object.attributes.ticker === "ETH") {
+            getRatio("ETH", setEth);
+          } else if (object.attributes.ticker === "BTC") {
+            getRatio("BTC", setBtc);
+          } else if (object.attributes.ticker === "BNB") {
+            getRatio("BNB", setBnb);
+          } else if (object.attributes.ticker === "SOL") {
+            getRatio("SOL", setSol);
+          } else if (object.attributes.ticker === "DOT") {
+            getRatio("DOT", setDot);
+          }
+        });
+      }
+      createLiveQuery();
+    }
+  }, [isInitialized]);
 
   useEffect(() => {
     async function fetchTokenPrice() {
@@ -31,6 +77,7 @@ const App = () => {
       fetchTokenPrice();
     }
   }, [modalToken]);
+
   return (
     <>
       <div className="header">
@@ -59,23 +106,30 @@ const App = () => {
           setVisible={setVisible}
         />
         <Coin
-          perc={link}
-          setPerc={setBtc}
-          token={"LINK"}
+          perc={matic}
+          setPerc={setMatic}
+          token={"MATIC"}
           setModalToken={setModalToken}
           setVisible={setVisible}
         />
         <Coin
-          perc={SOL}
-          setPerc={setSOL}
+          perc={sol}
+          setPerc={setSol}
           token={"SOL"}
           setModalToken={setModalToken}
           setVisible={setVisible}
         />
         <Coin
-          perc={DOT}
-          setPerc={setDOT}
+          perc={dot}
+          setPerc={setDot}
           token={"DOT"}
+          setModalToken={setModalToken}
+          setVisible={setVisible}
+        />
+        <Coin
+          perc={bnb}
+          setPerc={setBnb}
+          token={"BNB"}
           setModalToken={setModalToken}
           setVisible={setVisible}
         />

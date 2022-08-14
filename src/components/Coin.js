@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "./Coin.css";
 import { Button } from "web3uikit";
+import { useWeb3ExecuteFunction, useMoralis } from "react-moralis";
+// import { urlToHttpOptions } from "url";
 
 function Coin({ perc, setPerc, token, setModalToken, setVisible }) {
   const [color, setColor] = useState();
+  const contractProcessor = useWeb3ExecuteFunction();
+  const { isAuthenicated } = useMoralis();
 
   useEffect(() => {
     if (perc < 50) {
@@ -11,7 +15,40 @@ function Coin({ perc, setPerc, token, setModalToken, setVisible }) {
     } else {
       setColor("green");
     }
-  });
+  }, [perc]);
+
+  async function vote(upDown) {
+    let options = {
+      contractAddress: "0x2D53A50bd9A9c26b7597DE744De3Cd352B4D7d6B",
+      functionName: "vote",
+      abi: [
+        {
+          inputs: [
+            { internalType: "string", name: "_ticker", type: "string" },
+            { internalType: "bool", name: "_vote", type: "bool" },
+          ],
+          name: "vote",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ],
+      params: {
+        _ticker: token,
+        _vote: upDown,
+      },
+    };
+    await contractProcessor.fetch({
+      params: options,
+      onSuccess: () => {
+        console.log("vote successful");
+      },
+      onError: (error) => {
+        alert(error.data.message);
+      },
+    });
+  }
+
   return (
     <>
       <div>
@@ -29,18 +66,26 @@ function Coin({ perc, setPerc, token, setModalToken, setVisible }) {
         </div>
         <div class="votes">
           <Button
-            color="green"
             onClick={() => {
-              setPerc(perc + 1);
+              if (isAuthenicated) {
+                vote(true);
+              } else {
+                alert("Authenicate to Vote");
+              }
             }}
             text="Up"
-            theme="colored"
+            theme="primary"
             type="button"
           />
+
           <Button
             color="red"
             onClick={() => {
-              setPerc(perc - 1);
+              if (isAuthenicated) {
+                vote(false);
+              } else {
+                alert("Authenicate to Vote");
+              }
             }}
             text="Down"
             theme="colored"
