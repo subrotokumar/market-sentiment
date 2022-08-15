@@ -8,11 +8,11 @@ import { useMoralisWeb3Api, useMoralis } from "react-moralis";
 
 const App = () => {
   const [btc, setBtc] = useState(50);
-  const [eth, setEth] = useState(48);
-  const [matic, setMatic] = useState(60);
-  const [sol, setSol] = useState(30);
-  const [bnb, setBnb] = useState(39);
-  const [dot, setDot] = useState(39);
+  const [eth, setEth] = useState(50);
+  const [matic, setMatic] = useState(50);
+  const [sol, setSol] = useState(50);
+  const [bnb, setBnb] = useState(50);
+  const [dot, setDot] = useState(50);
 
   const [modalPrice, setModalPrice] = useState();
   const Web3Api = useMoralisWeb3Api();

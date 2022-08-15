@@ -2,12 +2,11 @@ import React, { useEffect, useState } from "react";
 import "./Coin.css";
 import { Button } from "web3uikit";
 import { useWeb3ExecuteFunction, useMoralis } from "react-moralis";
-// import { urlToHttpOptions } from "url";
 
 function Coin({ perc, setPerc, token, setModalToken, setVisible }) {
   const [color, setColor] = useState();
   const contractProcessor = useWeb3ExecuteFunction();
-  const { isAuthenicated } = useMoralis();
+  const { isAuthenticated } = useMoralis();
 
   useEffect(() => {
     if (perc < 50) {
@@ -67,7 +66,7 @@ function Coin({ perc, setPerc, token, setModalToken, setVisible }) {
         <div class="votes">
           <Button
             onClick={() => {
-              if (isAuthenicated) {
+              if (isAuthenticated) {
                 vote(true);
               } else {
                 alert("Authenicate to Vote");
@@ -81,7 +80,7 @@ function Coin({ perc, setPerc, token, setModalToken, setVisible }) {
           <Button
             color="red"
             onClick={() => {
-              if (isAuthenicated) {
+              if (isAuthenticated) {
                 vote(false);
               } else {
                 alert("Authenicate to Vote");
